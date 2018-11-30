@@ -1,4 +1,10 @@
 import {
+  appendChildren,
+  createButton,
+  createDiv,
+  createH3,
+  createImg,
+  createP,
   removeChildren,
 } from '../../dom-utils.js';
 
@@ -26,49 +32,47 @@ class BrowseMembersView {
 
     this.clearDom();
 
-    const memberProfile = document.createElement('div');
-    memberProfile.className = 'member-profile';
+    const memberProfile = createDiv('',
+      { class: 'member-profile' });
 
-    const memberImageBox = document.createElement('div');
-    memberImageBox.className = 'member-image-box';
+    const memberImageBox = createDiv('',
+      { class: 'member-image-box' });
 
-    const img = document.createElement('img');
-    img.setAttribute('src', '');
-    img.setAttribute('alt', thumbnailUrl);
+    const memberImg = createImg('',
+      { src: '', alt: thumbnailUrl });
 
-    const nameTitle = document.createElement('h3');
-    nameTitle.innerHTML = '名前';
-    const memberName = document.createElement('p');
-    memberName.className = 'member-name';
-    memberName.innerHTML = name;
-    const nameComment = document.createComment('会員の名前、たとえば「じじー」');
+    memberImageBox.appendChild(memberImg);
 
+    const nameTitle = createH3('名前', {});
 
-    const textTitle = document.createElement('h3');
-    textTitle.innerHTML = '一言';
-    const memberText = document.createElement('p');
-    memberText.className = 'member-text';
-    const textComment= document.createComment('会員の自己紹介');
-  
-    //memberProfile.appendChild(memberImageBox);
+    const memberName = createP(name,
+      { class: 'member-name' });
 
-    memberImageBox.appendChild(img);
-    memberProfile.appendChild(memberImageBox);
-    memberProfile.appendChild(nameTitle);
-    memberName.appendChild(nameComment);
-    memberProfile.appendChild(memberName);
-    memberProfile.appendChild(textTitle);
-    memberText.appendChild(textComment);
-    memberProfile.appendChild(memberText);
+    const textTitle = createH3('一言', {});
 
-    this.rootEl.appendChild(memberProfile);
+    const memberText = createP(quote,
+      { class: 'member-text' });
 
-    const nextButton = document.createElement('button');
-    nextButton.className = 'btn-next-member';
-    nextButton.innerHTML = '次へ';
+    const memberProfileChildren = [
+      memberImageBox,
+      nameTitle,
+      memberName,
+      textTitle,
+      memberText,
+    ];
 
-    this.rootEl.appendChild(nextButton);
-    
+    appendChildren(memberProfile, ...memberProfileChildren);
+
+    const nextButton = createButton('次へ',
+      { class: 'btn-next-member' });
+
+    const children = [
+      memberProfile,
+      nextButton,
+    ];
+
+    appendChildren(this.rootEl, ...children);
+
     /*
       TODO: 動的にDOM要素を作成して、
       "#container"というidを持つDIV要素の子要素として追加してください...
