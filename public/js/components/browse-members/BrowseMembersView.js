@@ -65,6 +65,7 @@ class BrowseMembersView {
 
     const nextButton = createButton('次へ',
       { class: 'btn-next-member' });
+    nextButton.onclick = handleBrowseNextMember;
 
     const children = [
       memberProfile,
