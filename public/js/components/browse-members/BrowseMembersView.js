@@ -39,7 +39,7 @@ class BrowseMembersView {
       { class: 'member-image-box' });
 
     const memberImg = createImg('',
-      { src: '', alt: thumbnailUrl });
+      { src: thumbnailUrl, alt: thumbnailUrl });
 
     memberImageBox.appendChild(memberImg);
 
