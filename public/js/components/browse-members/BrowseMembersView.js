@@ -1,4 +1,10 @@
 import {
+  appendChildren,
+  createButton,
+  createDiv,
+  createH3,
+  createImg,
+  createP,
   removeChildren,
 } from '../../dom-utils.js';
 
@@ -25,6 +31,48 @@ class BrowseMembersView {
     } = membersList[currentMemberIndex];
 
     this.clearDom();
+
+    const memberProfile = createDiv('',
+      { class: 'member-profile' });
+
+    const memberImageBox = createDiv('',
+      { class: 'member-image-box' });
+
+    const memberImg = createImg('',
+      { src: thumbnailUrl, alt: thumbnailUrl });
+
+    memberImageBox.appendChild(memberImg);
+
+    const nameTitle = createH3('名前', {});
+
+    const memberName = createP(name,
+      { class: 'member-name' });
+
+    const textTitle = createH3('一言', {});
+
+    const memberText = createP(quote,
+      { class: 'member-text' });
+
+    const memberProfileChildren = [
+      memberImageBox,
+      nameTitle,
+      memberName,
+      textTitle,
+      memberText,
+    ];
+
+    appendChildren(memberProfile, ...memberProfileChildren);
+
+    const nextButton = createButton('次へ',
+      { class: 'btn-next-member' });
+    nextButton.addEventListener('click', handleBrowseNextMember, false);
+
+    const children = [
+      memberProfile,
+      nextButton,
+    ];
+
+    appendChildren(this.rootEl, ...children);
 
     /*
       TODO: 動的にDOM要素を作成して、
